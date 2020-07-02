@@ -1,6 +1,5 @@
 package fasthttpserv
 
-
 import (
 	"fmt"
 	"github.com/buaazp/fasthttprouter"
@@ -56,6 +55,11 @@ func (fhs FastHTTPServ) Start(port string) {
 	log.Fatal(fasthttp.ListenAndServe(":"+port, fhs.router.Handler))
 
 }
+func (fhs FastHTTPServ) StartCORS(port string) {
+
+	log.Fatal(fasthttp.ListenAndServe(":"+port, CORS(fhs.router.Handler)))
+
+}
 
 // 第二个参数path用于日志
 func makeApifunc(f routerFunc, path string) fasthttp.RequestHandler {
@@ -73,7 +77,3 @@ func makeApifunc(f routerFunc, path string) fasthttp.RequestHandler {
 		fmt.Fprint(ctx, str)
 	}
 }
-
-
-
-
